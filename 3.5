@@ -9,4 +9,15 @@ both have the access to the directory on a shared storage device.
 When any modification of namespace is done,the active namenode logs the activity into edit log file stored in shared directory.
 The secondary namenode keeps a track of the edit logs and as soon as it finds that the edit logs file has been updated,it also updates same changes in its own namespace.
 In the event of failover,the standby will ensure that it has read all of its edits from shared storage before promoting into the active state.
-This ensures that the name state is fully synchronized before a failover occurs
+This ensures that the name state is fully synchronized before a failover occurs.
+The data nodes are configured with the locations of both the name nodes and they also contain bock location information of all datanodes.
+Presence of two master nodes ensure high availability of name nodes and avoids it as a single point of failure.
+
+Checkpointing in HDFS:
+It is used for maintaining and persisting filesystem metadata in HDFS.
+It is used for the recovery of the namenode and also to maintain data integrity.It indicates overall health of the cluster.
+Namenode stores data in two parts:
+fs image-check the edit log files after every hour to check for the updates
+ edit log files-updated every fifteen minutes to store all the updates.
+ This is how checkpointing is done and helps in fault tolerance.
+
