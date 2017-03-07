@@ -1,0 +1,12 @@
+High Availablity of NameNode:
+Gadoop cluster has two nodes:
+Name Node and Secondary Node
+Nmaenode stays in the active state and the secondary node stays in the standby node.
+The active node is responsible for servicing the client requests and also for storing metadata.
+Secondary namenode stays in the backup for in case of failover for recovery.
+For synchronizing the active node with the active node,current implementation requires that the two nodes
+both have the access to the directory on a shared storage device.
+When any modification of namespace is done,the active namenode logs the activity into edit log file stored in shared directory.
+The secondary namenode keeps a track of the edit logs and as soon as it finds that the edit logs file has been updated,it also updates same changes in its own namespace.
+In the event of failover,the standby will ensure that it has read all of its edits from shared storage before promoting into the active state.
+This ensures that the name state is fully synchronized before a failover occurs
