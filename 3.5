@@ -17,7 +17,37 @@ Checkpointing in HDFS:
 It is used for maintaining and persisting filesystem metadata in HDFS.
 It is used for the recovery of the namenode and also to maintain data integrity.It indicates overall health of the cluster.
 Namenode stores data in two parts:
-fs image-check the edit log files after every hour to check for the updates
+fs image-check the edit log files after every hour to check for the updatesp
  edit log files-updated every fifteen minutes to store all the updates.
  This is how checkpointing is done and helps in fault tolerance.
+ 
+ HDFS federation:
+ It separates the namespace layer and the storage layer.It enables the block storage layer.
+ Also it expands the architecture of existing HDFS cluster to allow new implementations and use cases.It has two layers;
+ 1.Namespace-This layer manages the files,directories and blocks and also supports the basic file operations eg listing and creation of files
+ 2.Block Storage-Again divided into two parts:
+ Block Management-Manages the datanodes in the cluster and provides operations like deletion,creation and modification and search.Also takes care of the replication management.
+ Physical Storage-It stores all the blocks and provides the access to all the read and write operations.
+ Hadoop federation allowsscaing the name service horizontally.It uses several nodes and namespaces whic hare independent of each other.
+ Independent name node are federated that is they dont require inter coordination
+ 
+ Benifits of Hadoop federation:
+ Scalablity and Isolation:Multiple namenodes horizontally scales up in the file system namespace.It separates  namespace volume for users and categories of application and provides absolute isolation.
+ Generic Storage Device:The block level pool abstraction allows architecture to build new file systems on top of block storage.We can easily build new
+applications on the block storage layer without using the file system interface.
+Simple Design:Namenodes and namespaces are independent of each other.Ther is hardly any scenario which requires changing the existing name nodes.
+Each name node is built to be robust.Federation is also backward compatible.It integrates with the existing single node delaoyments which work without any 
+configuration changes.
+
+4.
+Core-site.xml
+HDFS-site.xml
+YARN-site.xml
+Xml
+
+In site xml file:
+In hadoop,default replication factor is 3 but we can override the property by relication factor as 1 by explicitly configuring the property in
+HDFS SITE.XML
+ 
+ 
 
